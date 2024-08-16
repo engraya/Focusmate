@@ -7,21 +7,23 @@ import Image from "next/image";
 import menu from "@/app/utils/menu";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import Button from "../Button/Button";
+import Button from "../Button/Button"
+import { ThemeToggler } from "../ThemeToggler/ThemeToggler";
 import { arrowLeft, bars, logout } from "@/app/utils/Icons";
-import { UserButton, useClerk, useUser } from "@clerk/nextjs";
+import { useClerk, useUser } from "@clerk/nextjs";
+
+import {
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  UserButton
+} from '@clerk/nextjs'
 
 function Sidebar() {
   const { theme, collapsed, collapseMenu } = useGlobalState();
-  const { signOut } = useClerk();
 
   const { user } = useUser();
 
-  const { firstName, lastName, imageUrl } = user || {
-    firstName: "",
-    lastName: "",
-    imageUrl: "",
-  };
 
   const router = useRouter();
   const pathname = usePathname();
@@ -36,17 +38,22 @@ function Sidebar() {
         {collapsed ? bars : arrowLeft}
       </button>
       <div className="profile">
-        <div className="profile-overlay"></div>
-        <div className="image">
-          <Image width={70} height={70} src={imageUrl} alt="profile" />
+        <div className="profile-overlay text-emerald-300 font-semibold text-center">
+          {user?.firstName}
         </div>
-        <div className="user-btn absolute z-20 top-0 w-full h-full">
+
+          <SignedIn>
+          <div className="image absolute z-20 flex justify-center items-center w-full h-full">
           <UserButton />
         </div>
-        <h1 className="capitalize">
-          {firstName} {lastName}
-        </h1>
+          </SignedIn>
+
+   
       </div>
+      <SignedIn>
+      <div className="profile-overlay text-emerald-300 font-semibold text-center">
+          Focus Mate
+        </div>
       <ul className="nav-items">
         {menu.map((item) => {
           const link = item.link;
@@ -64,19 +71,23 @@ function Sidebar() {
           );
         })}
       </ul>
+      </SignedIn>
+
       <div className="sign-out relative m-6">
-        <Button
-          name={"Sign Out"}
-          type={"submit"}
-          padding={"0.4rem 0.8rem"}
-          borderRad={"0.8rem"}
-          fw={"500"}
-          fs={"1.2rem"}
-          icon={logout}
-          click={() => {
-            signOut(() => router.push("/signin"));
-          }}
-        />
+      <SignedOut>
+      <div className="flex items-center rounded-lg justify-center bg-[#35be91] px-8 py-2 text-center font-semibold text-white transition [box-shadow:rgb(171,_196,_245)_-8px_8px] hover:[box-shadow:rgb(171,_196,_245)_0px_0px]">
+        <p className="font-bold">
+        <SignInButton />
+        </p>
+        <svg className="h-4 w-4 flex-none" fill="currentColor" viewBox="0 0 20 21" xmlns="http://www.w3.org/2000/svg">
+          <title>Arrow Right</title>
+          <polygon points="16.172 9 10.101 2.929 11.515 1.515 20 10 19.293 10.707 11.515 18.485 10.101 17.071 16.172 11 0 11 0 9" />
+        </svg>
+      </div>
+      </SignedOut>
+      </div>
+      <div className="flex justify-center items-center mb-6">
+      <ThemeToggler/>
       </div>
     </SidebarStyled>
   );

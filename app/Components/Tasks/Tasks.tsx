@@ -4,7 +4,6 @@ import React from "react";
 import styled from "styled-components";
 import CreateContent from "../Modals/CreateContent";
 import TaskItem from "../TaskItem/TaskItem";
-import { add, plus } from "@/app/utils/Icons";
 import Modal from "../Modals/Modal";
 
 interface Props {
@@ -20,9 +19,8 @@ function Tasks({ title, tasks }: Props) {
       {modal && <Modal content={<CreateContent />} />}
       <h1>{title}</h1>
 
-      <button className="btn-rounded" onClick={openModal}>
-        {plus}
-      </button>
+      {/* <button className="btn-rounded" onClick={openModal}>
+      </button> */}
 
       <div className="tasks grid">
         {tasks.map((task) => (
@@ -36,8 +34,7 @@ function Tasks({ title, tasks }: Props) {
           />
         ))}
         <button className="create-task" onClick={openModal}>
-          {add}
-          Add New Task
+             Add New Task
         </button>
       </div>
     </TaskStyled>

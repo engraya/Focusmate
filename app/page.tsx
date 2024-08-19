@@ -1,9 +1,26 @@
-"use client";
-import Tasks from "./Components/Tasks/Tasks";
-import { useGlobalState } from "./context/globalProvider";
+import React from 'react'
+import { Dashboard } from './Components/Dashboard/Dashboard'
+import {
+  SignInButton,
+  SignedIn,
+  SignedOut,
+} from '@clerk/nextjs'
+import { Auth } from './Components/Auth/Auth'
 
-export default function Home() {
-  const { tasks } = useGlobalState();
+function HomePage() {
+  return (
+    <>
+    <SignedIn>
+      <Dashboard/>
+    </SignedIn>
+    <SignedOut>
+      <div className='flex justify-center items-center mt-32 mx-auto'>
+      <Auth />
+      </div>
+    </SignedOut>
+    </>
 
-  return <Tasks title="All Tasks" tasks={tasks} />;
+  )
 }
+
+export default HomePage

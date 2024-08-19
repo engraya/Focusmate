@@ -2,14 +2,13 @@ import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
 import { ClerkProvider} from "@clerk/nextjs";
 import { currentUser } from "@clerk/nextjs/server";
-
 import "./globals.css";
-import Sidebar from "./Components/Sidebar/Sidebar";
 import GlobalStyleProvider from "./providers/GlobalStyleProvider";
 import ContextProvider from "./providers/ContextProvider";
 import NextTopLoader from "nextjs-toploader";
 import Footer from "./Components/Footer/Footer";
 import { ThemeProvider } from "./Components/ThemeProvider/ThemeProvider";
+import { GlobalLayoutProvider } from "./Components/GlobalLayoutProvider/GlobalLayoutProvider";
 
 const nunito = Nunito({
   weight: ["400", "500", "600", "700", "800"],
@@ -55,13 +54,9 @@ export default async function RootLayout({
             easing="cubic-bezier(0.53,0.21,0,1)"
           />
           <ContextProvider>
-            <GlobalStyleProvider>
-              <Sidebar/>
-              <div className="w-full">
+              <GlobalLayoutProvider>
                 {children}
-                {/* <Footer/> */}
-              </div>
-            </GlobalStyleProvider>
+              </GlobalLayoutProvider>
           </ContextProvider>
           </ThemeProvider>
         </body>

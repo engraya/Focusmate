@@ -2,18 +2,9 @@ import Image from "next/image"
 import Link from "next/link"
 import {
   File,
-  Home,
-  LineChart,
   ListFilter,
   MoreHorizontal,
-  Package,
-  Package2,
-  PanelLeft,
   PlusCircle,
-  Search,
-  Settings,
-  ShoppingCart,
-  Users2,
 } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
@@ -51,7 +42,7 @@ import {
   TabsTrigger,
 } from "@/components/ui/tabs"
 
-export function Dashboard() {
+export default function EventsPage() {
   return (
     <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
     <Tabs defaultValue="all">

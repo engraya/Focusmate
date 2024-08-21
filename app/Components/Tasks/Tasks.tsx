@@ -27,7 +27,6 @@ function Tasks({ title, tasks }: Props) {
           <TaskItem
             key={task.id}
             title={task.title}
-            description={task.description}
             date={task.date}
             isCompleted={task.isCompleted}
             id={task.id}
